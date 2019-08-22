@@ -1,0 +1,27 @@
+{
+  "name": "dilay",
+  "version": "0.0.1",
+  "description": "An architecture guard of frontend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phodal/dilay.git"
+  },
+  "keywords": [
+    "Architecture",
+    "Guard",
+    "Frontend",
+    "Architecture",
+    "Future",
+    "Architecture"
+  ],
+  "author": "Phodal HUANG",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/phodal/dilay/issues"
+  },
+  "homepage": "https://github.com/phodal/dilay#readme"
+}
