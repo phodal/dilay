@@ -1,1 +1,1 @@
-export * from './lib/number';
+console.log('dilay');
