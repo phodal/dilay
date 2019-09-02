@@ -10,11 +10,6 @@ import ignore from 'ignore'
 
 const parseIgnore = require('parse-gitignore');
 
-const EXCLUDED_PATTERNS = [
-  /\.DS_Store/,
-  /node_modules/
-];
-
 function isHiddenFile(filename: string) {
   return filename[0] === '.';
 }
