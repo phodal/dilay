@@ -6,6 +6,9 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import ignore from 'ignore'
+
+const parseIgnore = require('parse-gitignore');
 
 const EXCLUDED_PATTERNS = [
   /\.DS_Store/,
@@ -16,6 +19,9 @@ function isHiddenFile(filename: string) {
   return filename[0] === '.';
 }
 
+let ignoreFiles = parseIgnore(fs.readFileSync(process.cwd() + '/' + '.gitignore'));
+
+const ig = ignore().add(ignoreFiles);
 
 function tree(filename: string, filePath: string) {
   const isDir = fs.lstatSync(filePath).isDirectory();
@@ -24,9 +30,10 @@ function tree(filename: string, filePath: string) {
   const lines: string[] = [];
 
   // Do not show these regardless.
-  for (let i = 0; i < EXCLUDED_PATTERNS.length; i++) {
-    console.log(filePath);
-    if (EXCLUDED_PATTERNS[i].test(filePath)) {
+
+  if (filename) {
+    let filteredPath = ig.filter([filename]);
+    if(filteredPath.length === 0) {
       return lines;
     }
   }

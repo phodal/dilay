@@ -1,13 +1,5 @@
-import * as fs from "fs";
 import tree from "./tree";
-
-const parse = require('parse-gitignore');
-
-
-// @ts-ignore
-function check() {
-  console.log(parse(fs.readFileSync(process.cwd() + '/' + '.gitignore')));
-}
+import * as path from "path";
 
 function getDir() {
   return process.cwd();
@@ -15,8 +7,7 @@ function getDir() {
 
 export default function runDilay() {
   const dir = getDir();
-  console.log(dir);
-  check();
-  tree('', dir)
-  // console.log(tree('', dir));
+  let filename = path.basename(path.join(process.cwd(), '.'));
+
+  console.log(tree(filename, dir));
 }
