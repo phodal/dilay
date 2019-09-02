@@ -28,7 +28,7 @@ function tree(filename: string, filePath: string) {
 
   if (filename) {
     let filteredPath = ig.filter([filename]);
-    if(filteredPath.length === 0) {
+    if (filteredPath.length === 0) {
       return lines;
     }
   }

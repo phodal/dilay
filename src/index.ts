@@ -16,15 +16,15 @@ function parseProject(dir: string) {
   let json: IPackageJSON = JSON.parse(fs.readFileSync(packageJson).toString());
   if ((json.dependencies && json.dependencies['react']) ||
     (json.devDependencies && json.devDependencies['react'])) {
-      return "react";
+    return "react";
   }
 
   if ((json.dependencies && json.dependencies['@angular/core'])) {
-      return "angular";
+    return "angular";
   }
 
   if ((json.dependencies && json.dependencies['vue'])) {
-      return "vue";
+    return "vue";
   }
 
 
@@ -34,7 +34,7 @@ function parseProject(dir: string) {
 export default function runDilay(projectType: string) {
   const dir = getDir();
 
-  if(!projectType) {
+  if (!projectType) {
     projectType = parseProject(dir);
   }
   let filename = path.basename(path.join(dir, '.'));
