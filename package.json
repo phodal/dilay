@@ -1,6 +1,6 @@
 {
   "name": "dilay",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An architecture guard of frontend.",
   "bin": "build/main/cli.js",
   "main": "build/main/index.js",
@@ -33,7 +33,6 @@
     "reset": "git clean -dfx && git reset --hard && npm i",
     "clean": "trash build test",
     "prepare-release": "run-s reset test cov:check doc:html version doc:publish",
-    "preinstall": "node -e \"if(process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('dilay must be installed with Yarn: https://yarnpkg.com/')\"",
     "cli": "node build/main/cli.js"
   },
   "scripts-info": {
