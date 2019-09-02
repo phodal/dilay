@@ -6,6 +6,15 @@ export function delint(sourceFile: ts.SourceFile) {
 
   function delintNode(node: ts.Node) {
     switch (node.kind) {
+      case ts.SyntaxKind.ImportDeclaration:
+        console.log(node);
+        break;
+      case ts.SyntaxKind.InterfaceDeclaration:
+        console.log((node as any)['name']['escapedText']);
+        break;
+      case ts.SyntaxKind.FunctionDeclaration:
+        console.log((node as any)['name']['escapedText']);
+        break;
       case ts.SyntaxKind.ClassDeclaration:
         console.log((node as any)['name']['escapedText']);
         break;
@@ -14,6 +23,8 @@ export function delint(sourceFile: ts.SourceFile) {
 
     ts.forEachChild(node, delintNode);
   }
+
+  return ""
 }
 
 const fileNames = process.argv.slice(2);
@@ -26,6 +37,5 @@ fileNames.forEach(fileName => {
     /*setParentNodes */ true
   );
 
-  // delint it
   delint(sourceFile);
 });
