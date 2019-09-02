@@ -14,16 +14,18 @@ program
 
   .parse(process.argv);
 
+let projectType = '';
+
 if (program.angular) {
-  console.log('angular');
+  projectType = 'angular';
 }
 
 if (program.react) {
-  console.log('react');
+  projectType = 'react';
 }
 
 if (program.vue) {
-  console.log('vue');
+  projectType = 'vue';
 }
 
-runDilay();
+runDilay(projectType);
