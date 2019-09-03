@@ -1,18 +1,7 @@
 import {readFileSync} from "fs";
 import * as ts from "typescript";
 
-function getExternalModuleName(node: ts.Node): ts.Expression | any {
-  if (node.kind === ts.SyntaxKind.ImportDeclaration) {
-    return (<ts.ImportDeclaration>node).moduleSpecifier;
-  }
-  if (node.kind === ts.SyntaxKind.ImportEqualsDeclaration) {
-    let reference = (<ts.ImportEqualsDeclaration>node).moduleReference;
-    if (reference.kind === ts.SyntaxKind.ExternalModuleReference) {
-      return (<ts.ExternalModuleReference>reference).expression;
-    }
-  }
-}
-
+// @ts-ignore
 export function delint(sourceFile: ts.SourceFile, checker: ts.TypeChecker) {
   delintNode(sourceFile);
 
@@ -20,16 +9,10 @@ export function delint(sourceFile: ts.SourceFile, checker: ts.TypeChecker) {
     switch (node.kind) {
       case ts.SyntaxKind.ImportDeclaration:
       case ts.SyntaxKind.ImportEqualsDeclaration:
-        let moduleNameExpr = getExternalModuleName(node);
-        if (moduleNameExpr && moduleNameExpr.kind === ts.SyntaxKind.StringLiteral) {
-          let moduleSymbol = checker.getSymbolAtLocation(moduleNameExpr);
-          if (moduleSymbol) {
-            let declarations = moduleSymbol.getDeclarations();
-            if (declarations) {
-              console.log(declarations[0])
-            }
-          }
-        }
+        let moduleSpecifier = (<ts.ImportDeclaration>node).moduleSpecifier;
+        const importPathWithQuotes = moduleSpecifier.getText(sourceFile);
+        const importPath = importPathWithQuotes.substr(1, importPathWithQuotes.length - 2);
+        console.log(importPath);
         break;
       case ts.SyntaxKind.InterfaceDeclaration:
         console.log((node as any)['name']['escapedText']);
