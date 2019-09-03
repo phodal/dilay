@@ -1,4 +1,3 @@
-import {readFileSync} from "fs";
 import * as ts from "typescript";
 
 // @ts-ignore
@@ -41,18 +40,18 @@ export function delint(sourceFile: ts.SourceFile, checker: ts.TypeChecker) {
 
   return ""
 }
-
-const fileNames = process.argv.slice(2);
-fileNames.forEach(fileName => {
-  // Parse a file
-
-  let program = ts.createProgram([fileName], {module: ts.ModuleKind.CommonJS});
-  const sourceFile = ts.createSourceFile(
-    fileName,
-    readFileSync(fileName).toString(),
-    ts.ScriptTarget.ES2015,
-    /*setParentNodes */ true
-  );
-
-  delint(sourceFile, program.getTypeChecker());
-});
+//
+// const fileNames = process.argv.slice(2);
+// fileNames.forEach(fileName => {
+//   // Parse a file
+//
+//   let program = ts.createProgram([fileName], {module: ts.ModuleKind.CommonJS});
+//   const sourceFile = ts.createSourceFile(
+//     fileName,
+//     readFileSync(fileName).toString(),
+//     ts.ScriptTarget.ES2015,
+//     /*setParentNodes */ true
+//   );
+//
+//   delint(sourceFile, program.getTypeChecker());
+// });
