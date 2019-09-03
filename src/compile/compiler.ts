@@ -7,6 +7,11 @@ export function delint(sourceFile: ts.SourceFile, checker: ts.TypeChecker) {
 
   function delintNode(node: ts.Node) {
     switch (node.kind) {
+      /*
+       import * as foo from './foo'; // ts.ImportDeclaration
+       as foo --> ts.ImportDeclaration.importClause
+        './foo' --> ts.ImportDeclaration.moduleSpecifier
+       */
       case ts.SyntaxKind.ImportDeclaration:
       case ts.SyntaxKind.ImportEqualsDeclaration:
         let escapedText: string = '';
@@ -41,7 +46,7 @@ const fileNames = process.argv.slice(2);
 fileNames.forEach(fileName => {
   // Parse a file
 
-  let program = ts.createProgram([fileName], { module: ts.ModuleKind.CommonJS });
+  let program = ts.createProgram([fileName], {module: ts.ModuleKind.CommonJS});
   const sourceFile = ts.createSourceFile(
     fileName,
     readFileSync(fileName).toString(),
