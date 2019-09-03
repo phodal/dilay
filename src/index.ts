@@ -19,10 +19,11 @@ export default function runDilay(projectType: string) {
   let treeData = tree(fileName, dir);
 
   if (projectType === 'angular') {
-    let program = ts.createProgram([fileName + '/src/main.ts'], {module: ts.ModuleKind.CommonJS});
+    let file = dir + '/src/main.ts';
+    let program = ts.createProgram([file], {module: ts.ModuleKind.CommonJS});
     const sourceFile = ts.createSourceFile(
-      fileName,
-      readFileSync(fileName).toString(),
+      file,
+      readFileSync(file).toString(),
       ts.ScriptTarget.ES2015,
       /*setParentNodes */ true
     );
