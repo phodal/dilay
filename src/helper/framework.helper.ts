@@ -1,7 +1,8 @@
 function testAngular(filepath: string, errors: string[]) {
   const fileSplitArray = filepath.split('/');
   let fileName = fileSplitArray[fileSplitArray.length - 1];
-  let fileDirectory = fileSplitArray[fileSplitArray.length - 2];
+  let fileDirectory = fileSplitArray[fileSplitArray.length - 3];
+  // components/hello/hello.component.html
 
   switch (fileDirectory) {
     case 'container':

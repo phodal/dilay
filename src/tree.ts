@@ -7,6 +7,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import ignore from 'ignore'
+import FrameworkHelper from "./helper/framework.helper";
 
 const parseIgnore = require('parse-gitignore');
 
@@ -34,6 +35,12 @@ function tree(filename: string, filePath: string) {
   }
 
   if (isFile) {
+    let errors: string[] = [];
+    FrameworkHelper.testAngular(filePath, errors);
+    if (errors.length > 0) {
+      console.log(errors);
+    }
+
     return lines;
   }
 
@@ -41,10 +48,6 @@ function tree(filename: string, filePath: string) {
   const line = [];
   line.push(filename);
   lines.push(line.join(''));
-
-  if (isFile) {
-    return lines;
-  }
 
   let contents = fs.readdirSync(filePath);
   contents = contents.filter(content => !isHiddenFile(content));
