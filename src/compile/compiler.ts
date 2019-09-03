@@ -9,10 +9,15 @@ export function delint(sourceFile: ts.SourceFile, checker: ts.TypeChecker) {
     switch (node.kind) {
       case ts.SyntaxKind.ImportDeclaration:
       case ts.SyntaxKind.ImportEqualsDeclaration:
+        let escapedText: string = '';
+        let importClause = (<ts.ImportDeclaration>node).importClause;
+        if (importClause && importClause.name) {
+          escapedText = importClause.name.escapedText.toString();
+        }
         let moduleSpecifier = (<ts.ImportDeclaration>node).moduleSpecifier;
         const importPathWithQuotes = moduleSpecifier.getText(sourceFile);
         const importPath = importPathWithQuotes.substr(1, importPathWithQuotes.length - 2);
-        console.log(importPath);
+        console.log(escapedText, importPath);
         break;
       case ts.SyntaxKind.InterfaceDeclaration:
         console.log((node as any)['name']['escapedText']);
