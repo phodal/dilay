@@ -8,6 +8,7 @@ let version = require('../../package.json').version;
 
 program
   .version(version)
+  .option('-p, --path <path>', 'relative path')
   .option('-a, --angular', 'angular style')
   .option('-r, --react', 'react style')
   .option('-v, --vue', 'vue style')
@@ -15,6 +16,7 @@ program
   .parse(process.argv);
 
 let projectType = '';
+let relativePath;
 
 if (program.angular) {
   projectType = 'angular';
@@ -28,4 +30,8 @@ if (program.vue) {
   projectType = 'vue';
 }
 
-runDilay(projectType);
+if (program.path) {
+  relativePath = program.path;
+}
+
+runDilay(projectType, relativePath);

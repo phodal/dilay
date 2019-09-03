@@ -9,8 +9,11 @@ function getDir() {
   return process.cwd();
 }
 
-export default function runDilay(projectType: string) {
-  const dir = getDir();
+export default function runDilay(projectType: string, relativePath: any) {
+  let dir = getDir();
+  if (relativePath) {
+    dir = path.join(dir, relativePath);
+  }
 
   if (!projectType) {
     projectType = ProjectHelper.parseProject(dir);
