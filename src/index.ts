@@ -15,7 +15,12 @@ export default function runDilay(projectType: string) {
   if (!projectType) {
     projectType = ProjectHelper.parseProject(dir);
   }
+
   let fileName = path.basename(path.join(dir, '.'));
+  if (projectType === 'angular') {
+    fileName = path.basename(path.join(dir, 'src'));
+  }
+
   let treeData = tree(fileName, dir);
 
   if (projectType === 'angular') {
