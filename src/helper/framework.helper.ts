@@ -1,7 +1,7 @@
 import {readFileSync} from "fs";
 import * as ts from "typescript";
 
-import {delint} from "../compile/compiler";
+import {angularCompiler} from "../compilers/angular-compiler";
 
 function checkDirectory(filepath: string, errors: string[]) {
   const fileSplitArray = filepath.split('/');
@@ -54,7 +54,7 @@ function checkDependency(filepath: string, errors: string[], program: any) {
     /*setParentNodes */ true
   );
 
-  let lintResult = delint(sourceFile, program.getTypeChecker());
+  let lintResult = angularCompiler(sourceFile, program.getTypeChecker());
   if (lintResult) {
     errors.push(lintResult);
   }
