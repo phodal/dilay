@@ -33,7 +33,6 @@ function walk(filename: string, filePath: string) {
   // Handle current file.
   const line = [];
   line.push(filename);
-  lines.push(line.join(''));
 
   let contents = fs.readdirSync(filePath);
   contents = contents.filter(content => !isHiddenFile(content));
