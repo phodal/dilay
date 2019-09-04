@@ -29,7 +29,6 @@ function tree(filename: string, filePath: string, projectType: string) {
   const lines: string[] = [];
 
   // Do not show these regardless.
-
   if (filename) {
     let filteredPath = ig.filter([filename]);
     if (filteredPath.length === 0) {

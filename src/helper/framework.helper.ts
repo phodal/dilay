@@ -1,8 +1,13 @@
 function testAngular(filepath: string, errors: string[]) {
   const fileSplitArray = filepath.split('/');
   let fileName = fileSplitArray[fileSplitArray.length - 1];
-  let fileDirectory = fileSplitArray[fileSplitArray.length - 3];
-  // components/hello/hello.component.html
+  let fileDirectory = fileSplitArray[fileSplitArray.length - 2];
+
+  if (filepath.includes('components') ||
+    filepath.includes('containers') ||
+    filepath.includes('pages')) {
+    fileDirectory = fileSplitArray[fileSplitArray.length - 3];
+  }
 
   switch (fileDirectory) {
     case 'container':
@@ -21,12 +26,13 @@ function testAngular(filepath: string, errors: string[]) {
       }
       break;
     case 'utils':
-      if (!fileName.includes('util') || !fileName.includes('helper')) {
+      if (!(fileName.includes('util') || !fileName.includes('helper'))) {
         errors.push(`error filename: ${filepath}`);
       }
       break;
     case 'helpers':
-      if (!fileName.includes('util') || !fileName.includes('helper')) {
+      console.log(fileName);
+      if (!(fileName.includes('util') || fileName.includes('helper'))) {
         errors.push(`error filename: ${filepath}`);
       }
       break;
