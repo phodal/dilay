@@ -22,18 +22,5 @@ export default function runDilay(projectType: string, relativePath: any) {
   }
 
   let treeData = tree(fileName, dir, projectType);
-  //
-  // if (projectType === 'angular') {
-  //   let file = dir + '/src/main.ts';
-  //   let program = ts.createProgram([file], {module: ts.ModuleKind.CommonJS});
-  //   const sourceFile = ts.createSourceFile(
-  //     file,
-  //     readFileSync(file).toString(),
-  //     ts.ScriptTarget.ES2015,
-  //     /*setParentNodes */ true
-  //   );
-  //
-  //   delint(sourceFile, program.getTypeChecker());
-  // }
   console.log(treeData);
 }
