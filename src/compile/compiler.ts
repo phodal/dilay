@@ -21,6 +21,7 @@ export function delint(sourceFile: ts.SourceFile, checker: ts.TypeChecker) {
         let moduleSpecifier = (<ts.ImportDeclaration>node).moduleSpecifier;
         const importPathWithQuotes = moduleSpecifier.getText(sourceFile);
         const importPath = importPathWithQuotes.substr(1, importPathWithQuotes.length - 2);
+
         console.log(escapedText, importPath);
         break;
       case ts.SyntaxKind.InterfaceDeclaration:

@@ -1,3 +1,8 @@
+import {readFileSync} from "fs";
+import * as ts from "typescript";
+
+import {delint} from "../compile/compiler";
+
 function checkDirectory(filepath: string, errors: string[]) {
   const fileSplitArray = filepath.split('/');
   let fileName = fileSplitArray[fileSplitArray.length - 1];
@@ -41,8 +46,24 @@ function checkDirectory(filepath: string, errors: string[]) {
   }
 }
 
+function checkDependency(filepath: string, errors: string[]) {
+  let program = ts.createProgram([filepath], {module: ts.ModuleKind.CommonJS});
+  const sourceFile = ts.createSourceFile(
+    filepath,
+    readFileSync(filepath).toString(),
+    ts.ScriptTarget.ES2015,
+    /*setParentNodes */ true
+  );
+
+  let lintResult = delint(sourceFile, program.getTypeChecker());
+  if (lintResult) {
+    errors.push(lintResult);
+  }
+}
+
 function testAngular(filepath: string, errors: string[]) {
   checkDirectory(filepath, errors);
+  checkDependency(filepath, errors);
 }
 
 const FrameworkHelper = {
