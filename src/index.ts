@@ -27,7 +27,7 @@ export default function runDilay(projectType: string, relativePath: any) {
   files = FileUtil.filterBySuffix(files, '.ts');
   let program = ts.createProgram(files, {module: ts.ModuleKind.CommonJS});
 
-  let treeData = compileCheck(fileName, dir, {
+  compileCheck(fileName, dir, {
     projectType,
     program
   });
