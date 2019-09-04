@@ -2,6 +2,7 @@ import compileCheck from "./compile-check";
 import * as path from "path";
 import ProjectHelper from "./helper/project.helper";
 import FileUtil from "./helper/file.util";
+import * as ts from "typescript";
 
 function getDir() {
   return process.cwd();
@@ -23,7 +24,11 @@ export default function runDilay(projectType: string, relativePath: any) {
   }
 
   let files = FileUtil.walkDir(fileName, dir);
-  console.log(files);
-  let treeData = compileCheck(fileName, dir, projectType);
-  console.log(treeData);
+  files = FileUtil.filterBySuffix(files, '.ts');
+  let program = ts.createProgram(files, {module: ts.ModuleKind.CommonJS});
+
+  let treeData = compileCheck(fileName, dir, {
+    projectType,
+    program
+  });
 }

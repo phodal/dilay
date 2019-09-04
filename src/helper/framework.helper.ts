@@ -46,8 +46,7 @@ function checkDirectory(filepath: string, errors: string[]) {
   }
 }
 
-function checkDependency(filepath: string, errors: string[]) {
-  let program = ts.createProgram([filepath], {module: ts.ModuleKind.CommonJS});
+function checkDependency(filepath: string, errors: string[], program: any) {
   const sourceFile = ts.createSourceFile(
     filepath,
     readFileSync(filepath).toString(),
@@ -61,9 +60,9 @@ function checkDependency(filepath: string, errors: string[]) {
   }
 }
 
-function testAngular(filepath: string, errors: string[]) {
+function testAngular(filepath: string, errors: string[], program: any) {
   checkDirectory(filepath, errors);
-  checkDependency(filepath, errors);
+  checkDependency(filepath, errors, program);
 }
 
 const FrameworkHelper = {
