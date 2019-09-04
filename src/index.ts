@@ -1,8 +1,9 @@
-import compileCheck from "./compile-check";
 import * as path from "path";
+import * as ts from "typescript";
+
 import ProjectHelper from "./helper/project.helper";
 import FileUtil from "./helper/file.util";
-import * as ts from "typescript";
+import compileCheck from "./compile-check";
 
 function getDir() {
   return process.cwd();

@@ -18,7 +18,7 @@ const parseIgnore = require('parse-gitignore');
 let ignoreFiles = parseIgnore(fs.readFileSync(process.cwd() + '/' + '.gitignore'));
 const ig = ignore().add(ignoreFiles);
 
-function compileCheck(filename: string, filePath: string, options: { projectType: string; program: any }) {
+function compile(filename: string, filePath: string, options: { projectType: string; program: any }) {
   const isDir = fs.lstatSync(filePath).isDirectory();
   const isFile = !isDir;
 
@@ -54,12 +54,21 @@ function compileCheck(filename: string, filePath: string, options: { projectType
   contents = contents.filter(content => !FileUtil.isHiddenFile(content));
 
   contents.forEach((content) => {
-    const linesForFile = compileCheck(content, path.join(filePath, content), options);
+    const linesForFile = compile(content, path.join(filePath, content), options);
 
     lines.push.apply(lines, linesForFile);
   });
 
   return lines;
+}
+
+function compileCheck(filename: string, filePath: string, options: { projectType: string; program: any }) {
+  let ANGULAR_PATTERNS = [
+    '/e2e'
+  ];
+
+  ig.add(ANGULAR_PATTERNS);
+  return compile(filename, filePath, options);
 }
 
 export default compileCheck;

@@ -22,7 +22,9 @@ export function angularCompiler(sourceFile: ts.SourceFile, checker: ts.TypeCheck
         const importPathWithQuotes = moduleSpecifier.getText(sourceFile);
         const importPath = importPathWithQuotes.substr(1, importPathWithQuotes.length - 2);
 
-        console.log(escapedText, importPath);
+        if (importPath.startsWith("./") || importPath.startsWith("../")) {
+          console.log(escapedText, importPath);
+        }
         break;
       case ts.SyntaxKind.InterfaceDeclaration:
         console.log((node as any)['name']['escapedText']);
