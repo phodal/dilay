@@ -11,15 +11,11 @@ import ignore from 'ignore'
 const colors = require('colors/safe');
 
 import FrameworkHelper from "./helper/framework.helper";
+import FileUtil from "./helper/file.util";
 
 const parseIgnore = require('parse-gitignore');
 
-function isHiddenFile(filename: string) {
-  return filename[0] === '.';
-}
-
 let ignoreFiles = parseIgnore(fs.readFileSync(process.cwd() + '/' + '.gitignore'));
-
 const ig = ignore().add(ignoreFiles);
 
 function compileCheck(filename: string, filePath: string, projectType: string) {
@@ -55,7 +51,7 @@ function compileCheck(filename: string, filePath: string, projectType: string) {
   lines.push(line.join(''));
 
   let contents = fs.readdirSync(filePath);
-  contents = contents.filter(content => !isHiddenFile(content));
+  contents = contents.filter(content => !FileUtil.isHiddenFile(content));
 
   contents.forEach((content) => {
     const linesForFile = compileCheck(content, path.join(filePath, content), projectType);
