@@ -46,9 +46,14 @@ function walk(filename: string, filePath: string) {
   return lines;
 }
 
-
 function walkDir(fileName: string, dir: string) {
-  return walk(fileName, dir);
+  let dirLength = dir.length;
+  let files = walk(fileName, dir);
+  files = files.map(file => {
+    return file.substr(dirLength + 1, file.length);
+  });
+
+  return files;
 }
 
 function isHiddenFile(filename: string) {
