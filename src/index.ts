@@ -24,7 +24,7 @@ export default function runDilay(projectType: string, relativePath: any) {
     fileName = path.basename(path.join(dir, 'src'));
   }
 
-  let treeData = tree(fileName, dir);
+  let treeData = tree(fileName, dir, projectType);
 
   if (projectType === 'angular') {
     let file = dir + '/src/main.ts';

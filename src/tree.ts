@@ -19,7 +19,7 @@ let ignoreFiles = parseIgnore(fs.readFileSync(process.cwd() + '/' + '.gitignore'
 
 const ig = ignore().add(ignoreFiles);
 
-function tree(filename: string, filePath: string) {
+function tree(filename: string, filePath: string, projectType: string) {
   const isDir = fs.lstatSync(filePath).isDirectory();
   const isFile = !isDir;
 
@@ -36,7 +36,10 @@ function tree(filename: string, filePath: string) {
 
   if (isFile) {
     let errors: string[] = [];
-    FrameworkHelper.testAngular(filePath, errors);
+    if (projectType === 'angular') {
+      FrameworkHelper.testAngular(filePath, errors);
+    }
+
     if (errors.length > 0) {
       console.log(errors);
     }
@@ -53,10 +56,7 @@ function tree(filename: string, filePath: string) {
   contents = contents.filter(content => !isHiddenFile(content));
 
   contents.forEach((content) => {
-    const linesForFile = tree(
-      content,
-      path.join(filePath, content),
-    );
+    const linesForFile = tree(content, path.join(filePath, content), projectType);
 
     lines.push.apply(lines, linesForFile);
   });
