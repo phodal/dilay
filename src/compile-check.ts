@@ -22,7 +22,7 @@ let ignoreFiles = parseIgnore(fs.readFileSync(process.cwd() + '/' + '.gitignore'
 
 const ig = ignore().add(ignoreFiles);
 
-function tree(filename: string, filePath: string, projectType: string) {
+function compileCheck(filename: string, filePath: string, projectType: string) {
   const isDir = fs.lstatSync(filePath).isDirectory();
   const isFile = !isDir;
 
@@ -58,7 +58,7 @@ function tree(filename: string, filePath: string, projectType: string) {
   contents = contents.filter(content => !isHiddenFile(content));
 
   contents.forEach((content) => {
-    const linesForFile = tree(content, path.join(filePath, content), projectType);
+    const linesForFile = compileCheck(content, path.join(filePath, content), projectType);
 
     lines.push.apply(lines, linesForFile);
   });
@@ -66,4 +66,4 @@ function tree(filename: string, filePath: string, projectType: string) {
   return lines;
 }
 
-export default tree;
+export default compileCheck;
