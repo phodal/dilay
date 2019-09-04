@@ -7,6 +7,9 @@
 import * as fs from "fs";
 import * as path from "path";
 import ignore from 'ignore'
+
+const colors = require('colors/safe');
+
 import FrameworkHelper from "./helper/framework.helper";
 
 const parseIgnore = require('parse-gitignore');
@@ -41,7 +44,7 @@ function tree(filename: string, filePath: string, projectType: string) {
     }
 
     if (errors.length > 0) {
-      console.log(errors);
+      console.log(colors.red(errors));
     }
 
     return lines;

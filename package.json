@@ -52,6 +52,7 @@
     "node": ">=8.9"
   },
   "dependencies": {
+    "colors": "^1.3.3",
     "commander": "^3.0.0",
     "ignore": "^5.1.4",
     "parse-gitignore": "^1.0.1"
