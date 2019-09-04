@@ -1,4 +1,4 @@
-function testAngular(filepath: string, errors: string[]) {
+function checkDirectory(filepath: string, errors: string[]) {
   const fileSplitArray = filepath.split('/');
   let fileName = fileSplitArray[fileSplitArray.length - 1];
   let fileDirectory = fileSplitArray[fileSplitArray.length - 2];
@@ -39,7 +39,10 @@ function testAngular(filepath: string, errors: string[]) {
     default:
       break;
   }
+}
 
+function testAngular(filepath: string, errors: string[]) {
+  checkDirectory(filepath, errors);
 }
 
 const FrameworkHelper = {
