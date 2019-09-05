@@ -1,6 +1,22 @@
 # dilay
 
-An architecture guard of frontend.
+> An architecture guard of frontend.
+
+Todo:
+
+ - [ ] Language Support
+   - [x] TypeScript Support
+   - [x] JavaScript Support
+ - [ ] Framework Support:
+   - [x] Framework recognize
+   - [ ] Angular (part)
+   - [ ] React
+   - [ ] Vue
+ - Architecture Support:
+   - [ ] Design System based Architecture
+   - [ ] Layered based
+   - [ ] Clean Architecture 
+ - [ ] Custom DSL
 
 ## Usage
 
