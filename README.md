@@ -1,6 +1,8 @@
-# dilay
+# Dilay 
 
 > An architecture guard of frontend.
+
+This project current is PoC stage, but you can try in your code. 
 
 Todo:
 
