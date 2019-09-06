@@ -6,7 +6,7 @@ Todo:
 
  - [ ] Language Support
    - [x] TypeScript Support
-   - [x] JavaScript Support
+   - [ ] JavaScript Support
  - [ ] Framework Support:
    - [x] Framework recognize
    - [ ] Angular (part)
