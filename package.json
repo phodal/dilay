@@ -1,6 +1,6 @@
 {
   "name": "dilay",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "An architecture guard of frontend.",
   "bin": "build/main/cli.js",
   "main": "build/main/index.js",
