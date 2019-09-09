@@ -20,13 +20,22 @@ export default function runDilay(projectType: string, relativePath: any) {
   }
 
   let fileName = path.basename(path.join(dir, '.'));
-  if (projectType === 'angular') {
+  let files, program;
+
+  if (projectType === 'react') {
     fileName = path.basename(path.join(dir, 'src'));
+
+    files = FileUtil.walkDir(fileName, dir);
+    files = FileUtil.filterBySuffix(files, ['.tsx', '.ts']);
+    program = ts.createProgram(files, {module: ts.ModuleKind.CommonJS});
   }
 
-  let files = FileUtil.walkDir(fileName, dir);
-  files = FileUtil.filterBySuffix(files, ['.ts']);
-  let program = ts.createProgram(files, {module: ts.ModuleKind.CommonJS});
+  if (projectType === 'angular') {
+    fileName = path.basename(path.join(dir, 'src'));
+    files = FileUtil.walkDir(fileName, dir);
+    files = FileUtil.filterBySuffix(files, ['.ts']);
+    program = ts.createProgram(files, {module: ts.ModuleKind.CommonJS});
+  }
 
   compileCheck(fileName, dir, {
     projectType,

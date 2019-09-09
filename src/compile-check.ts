@@ -38,6 +38,10 @@ function compile(filename: string, filePath: string, options: { projectType: str
       FrameworkHelper.analyseAngular(filePath, errors, options.program);
     }
 
+    if (options.projectType === 'react') {
+      FrameworkHelper.analyseReact(filePath, errors, options.program);
+    }
+
     if (errors.length > 0) {
       console.log(colors.red(errors));
     }

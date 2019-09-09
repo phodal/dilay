@@ -27,13 +27,13 @@ export function ImportAnalysisCompiler(sourceFile: ts.SourceFile, checker: ts.Ty
         }
         break;
       case ts.SyntaxKind.InterfaceDeclaration:
-        console.log((node as any)['name']['escapedText']);
+        // console.log((node as any)['name']['escapedText']);
         break;
       case ts.SyntaxKind.FunctionDeclaration:
-        console.log((node as any)['name']['escapedText']);
+        // console.log((node as any)['name']['escapedText']);
         break;
       case ts.SyntaxKind.ClassDeclaration:
-        console.log((node as any)['name']['escapedText']);
+        // console.log((node as any)['name']['escapedText']);
         break;
 
     }
