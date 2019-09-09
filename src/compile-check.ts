@@ -71,7 +71,8 @@ function compileCheck(filename: string, filePath: string, options: { projectType
     '/e2e',
     '**/*.md',
     '**/public_api.ts',
-    '**/*.json'
+    '**/*.json',
+    '**/*.scss' // TODO: add SCSS check
   ];
 
   ig.add(ANGULAR_PATTERNS);
