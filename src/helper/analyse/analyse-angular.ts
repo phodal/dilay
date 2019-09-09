@@ -61,13 +61,26 @@ function checkDependency(filepath: string, errors: string[], program: any) {
     /*setParentNodes */ true
   );
 
-  let lintResult = analysisAngularImport(sourceFile, program.getTypeChecker());
-  if (lintResult) {
-    errors.push(lintResult);
+  let nodeInfo = analysisAngularImport(sourceFile, program.getTypeChecker());
+  if (nodeInfo.length > 1) {
+    let isComponent = false;
+    let componentName = '';
+    for (const node of nodeInfo) {
+      if (node.includes('Component')) {
+        componentName = node;
+        isComponent = true;
+      }
+    }
+
+    if (isComponent) {
+      console.error(`${componentName} has multiple class ${nodeInfo}`)
+    }
   }
+
+  return nodeInfo;
 }
 
 export function analyseAngular(filepath: string, errors: string[], program: any) {
-  checkDirectory(filepath, errors);
   checkDependency(filepath, errors, program);
+  checkDirectory(filepath, errors);
 }

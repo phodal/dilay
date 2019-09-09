@@ -2,6 +2,7 @@ import * as ts from "typescript";
 
 // @ts-ignore
 export function analysisAngularImport(sourceFile: ts.SourceFile, checker: ts.TypeChecker) {
+  let nodeNames: string[] = [];
   delintNode(sourceFile);
 
   function delintNode(node: ts.Node) {
@@ -33,7 +34,10 @@ export function analysisAngularImport(sourceFile: ts.SourceFile, checker: ts.Typ
         // console.log((node as any)['name']['escapedText']);
         break;
       case ts.SyntaxKind.ClassDeclaration:
-        // console.log((node as any)['name']['escapedText']);
+        let nodeName = (node as any)['name'];
+        if (nodeName && nodeName['escapedText']) {
+          nodeNames.push(nodeName['escapedText']);
+        }
         break;
 
     }
@@ -41,5 +45,9 @@ export function analysisAngularImport(sourceFile: ts.SourceFile, checker: ts.Typ
     ts.forEachChild(node, delintNode);
   }
 
-  return ""
+  if (nodeNames.length >= 1) {
+    return nodeNames
+  }
+
+  return [""]
 }
