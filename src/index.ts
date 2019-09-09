@@ -25,7 +25,7 @@ export default function runDilay(projectType: string, relativePath: any) {
   }
 
   let files = FileUtil.walkDir(fileName, dir);
-  files = FileUtil.filterBySuffix(files, '.ts');
+  files = FileUtil.filterBySuffix(files, ['.ts']);
   let program = ts.createProgram(files, {module: ts.ModuleKind.CommonJS});
 
   compileCheck(fileName, dir, {

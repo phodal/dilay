@@ -60,9 +60,16 @@ function isHiddenFile(filename: string) {
   return filename[0] === '.';
 }
 
-function filterBySuffix(files: string[], ext: string) {
+function filterBySuffixes(files: string[], suffixes: string[]) {
   return files.filter(function (file) {
-    return path.extname(file).toLowerCase() === ext;
+    let equal = false;
+    for (let i = 0; i < suffixes.length; i++) {
+      const ext = suffixes[0];
+      if (path.extname(file).toLowerCase() === ext) {
+        return true;
+      }
+    }
+    return equal;
   });
 }
 
@@ -70,7 +77,7 @@ const FileUtil = {
   parseProject: parseProject,
   walkDir: walkDir,
   isHiddenFile: isHiddenFile,
-  filterBySuffix: filterBySuffix
+  filterBySuffix: filterBySuffixes
 };
 
 export default FileUtil;
