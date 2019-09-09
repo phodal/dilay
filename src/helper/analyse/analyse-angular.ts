@@ -3,6 +3,14 @@ import * as ts from "typescript";
 
 import {ImportAnalysisCompiler} from "../../compilers/import-analysis-compiler";
 
+function isMatchAngularComponentRules(fileName: string) {
+  return (fileName.includes('component') || fileName.includes('module'));
+}
+
+function isMatchHelperFileRules(fileName: string) {
+  return (fileName.includes('util') || fileName.includes('helper'));
+}
+
 function checkDirectory(filepath: string, errors: string[]) {
   const fileSplitArray = filepath.split('/');
   let fileName = fileSplitArray[fileSplitArray.length - 1];
@@ -16,27 +24,27 @@ function checkDirectory(filepath: string, errors: string[]) {
 
   switch (fileDirectory) {
     case 'container':
-      if (!fileName.includes('component')) {
+      if (!isMatchAngularComponentRules(fileName)) {
         errors.push(`error filename: ${filepath}`);
       }
       break;
     case 'components':
-      if (!fileName.includes('component')) {
+      if (!isMatchAngularComponentRules(fileName)) {
         errors.push(`error filename: ${filepath}`);
       }
       break;
     case 'pages':
-      if (!fileName.includes('component')) {
+      if (!isMatchAngularComponentRules(fileName)) {
         errors.push(`error filename: ${filepath}`);
       }
       break;
     case 'utils':
-      if (!(fileName.includes('util') || !fileName.includes('helper'))) {
+      if (!isMatchHelperFileRules(fileName)) {
         errors.push(`error filename: ${filepath}`);
       }
       break;
     case 'helpers':
-      if (!(fileName.includes('util') || fileName.includes('helper'))) {
+      if (!isMatchHelperFileRules(fileName)) {
         errors.push(`error filename: ${filepath}`);
       }
       break;

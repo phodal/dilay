@@ -68,7 +68,10 @@ function compile(filename: string, filePath: string, options: { projectType: str
 
 function compileCheck(filename: string, filePath: string, options: { projectType: string; program: any }) {
   let ANGULAR_PATTERNS = [
-    '/e2e'
+    '/e2e',
+    '**/*.md',
+    '**/public_api.ts',
+    '**/*.json'
   ];
 
   ig.add(ANGULAR_PATTERNS);
