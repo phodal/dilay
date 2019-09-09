@@ -1,7 +1,7 @@
 import {readFileSync} from "fs";
 import * as ts from "typescript";
 
-import {angularCompiler} from "../compilers/angular-compiler";
+import {ImportAnalysisCompiler} from "../compilers/import-analysis-compiler";
 
 function checkDirectory(filepath: string, errors: string[]) {
   const fileSplitArray = filepath.split('/');
@@ -36,7 +36,6 @@ function checkDirectory(filepath: string, errors: string[]) {
       }
       break;
     case 'helpers':
-      console.log(fileName);
       if (!(fileName.includes('util') || fileName.includes('helper'))) {
         errors.push(`error filename: ${filepath}`);
       }
@@ -54,7 +53,7 @@ function checkDependency(filepath: string, errors: string[], program: any) {
     /*setParentNodes */ true
   );
 
-  let lintResult = angularCompiler(sourceFile, program.getTypeChecker());
+  let lintResult = ImportAnalysisCompiler(sourceFile, program.getTypeChecker());
   if (lintResult) {
     errors.push(lintResult);
   }
