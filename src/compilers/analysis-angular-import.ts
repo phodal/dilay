@@ -1,7 +1,7 @@
 import * as ts from "typescript";
 
 // @ts-ignore
-export function ImportAnalysisCompiler(sourceFile: ts.SourceFile, checker: ts.TypeChecker) {
+export function analysisAngularImport(sourceFile: ts.SourceFile, checker: ts.TypeChecker) {
   delintNode(sourceFile);
 
   function delintNode(node: ts.Node) {

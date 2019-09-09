@@ -1,7 +1,7 @@
 import {readFileSync} from "fs";
 import * as ts from "typescript";
 
-import {ImportAnalysisCompiler} from "../../compilers/import-analysis-compiler";
+import {analysisAngularImport} from "../../compilers/analysis-angular-import";
 
 function checkDirectory(filepath: string, errors: string[]) {
   const fileSplitArray = filepath.split('/');
@@ -53,7 +53,7 @@ function checkDependency(filepath: string, errors: string[], program: any) {
     /*setParentNodes */ true
   );
 
-  let lintResult = ImportAnalysisCompiler(sourceFile, program.getTypeChecker());
+  let lintResult = analysisAngularImport(sourceFile, program.getTypeChecker());
   if (lintResult) {
     errors.push(lintResult);
   }
