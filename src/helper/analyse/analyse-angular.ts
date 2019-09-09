@@ -11,7 +11,13 @@ function isMatchHelperFileRules(fileName: string) {
   return (fileName.includes('util') || fileName.includes('helper'));
 }
 
-function checkDirectory(filepath: string, errors: string[]) {
+interface AnalyseNode {
+  node: string[];
+  componentName: string;
+  isComponent: boolean
+}
+
+function checkDirectory(filepath: string, errors: string[], node: AnalyseNode) {
   const fileSplitArray = filepath.split('/');
   let fileName = fileSplitArray[fileSplitArray.length - 1];
   let fileDirectory = fileSplitArray[fileSplitArray.length - 2];
@@ -49,11 +55,19 @@ function checkDirectory(filepath: string, errors: string[]) {
       }
       break;
     default:
+      if (node.isComponent) {
+        if (!isMatchAngularComponentRules(fileName)) {
+          errors.push(`error filename: ${filepath}`);
+        }
+      }
       break;
   }
 }
 
 function checkDependency(filepath: string, errors: string[], program: any) {
+  let isComponent = false;
+  let componentName = '';
+
   const sourceFile = ts.createSourceFile(
     filepath,
     readFileSync(filepath).toString(),
@@ -62,25 +76,26 @@ function checkDependency(filepath: string, errors: string[], program: any) {
   );
 
   let nodeInfo = analysisAngularImport(sourceFile, program.getTypeChecker());
-  if (nodeInfo.length > 1) {
-    let isComponent = false;
-    let componentName = '';
-    for (const node of nodeInfo) {
-      if (node.includes('Component')) {
-        componentName = node;
-        isComponent = true;
-      }
-    }
-
-    if (isComponent) {
-      console.error(`${componentName} has multiple class ${nodeInfo}`)
+  for (const node of nodeInfo) {
+    if (node.includes('Component')) {
+      componentName = node;
+      isComponent = true;
     }
   }
 
-  return nodeInfo;
+  if (isComponent && nodeInfo.length > 1) {
+    let error = `${componentName} has multiple class ${nodeInfo}`;
+    errors.push(error);
+  }
+
+  return {
+    node: nodeInfo,
+    componentName: componentName,
+    isComponent: isComponent
+  };
 }
 
 export function analyseAngular(filepath: string, errors: string[], program: any) {
-  checkDependency(filepath, errors, program);
-  checkDirectory(filepath, errors);
+  const node = checkDependency(filepath, errors, program);
+  checkDirectory(filepath, errors, node);
 }
