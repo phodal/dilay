@@ -35,7 +35,7 @@ function compile(filename: string, filePath: string, options: { projectType: str
   if (isFile) {
     let errors: string[] = [];
     if (options.projectType === 'angular') {
-      FrameworkHelper.testAngular(filePath, errors, options.program);
+      FrameworkHelper.analyseAngular(filePath, errors, options.program);
     }
 
     if (errors.length > 0) {
